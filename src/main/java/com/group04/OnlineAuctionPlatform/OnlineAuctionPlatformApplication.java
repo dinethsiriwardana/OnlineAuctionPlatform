@@ -18,6 +18,6 @@ public class OnlineAuctionPlatformApplication {
 		SpringApplication.run(OnlineAuctionPlatformApplication.class, args);
 	}
 
-//	@GetMapping
+
 
 }
