@@ -14,13 +14,13 @@ import static java.util.Calendar.APRIL;
 @Configuration
 public class UserConfig {
 
-//    @Bean
+    @Bean
     CommandLineRunner UsercommandLineRunner(UserRepository repository){
         return args -> {
             UserData user1 =  new UserData(
                     "Dineth",
                     "info@dineth.me",
-                   "$Student@123",
+                   "2HvjSCN3Rym+mNvwdThKRwlze5xtdCKJyLfWsy9A31A=",
                     "USER"
 
             );
@@ -31,7 +31,7 @@ public class UserConfig {
                     "USER"
 
             );
-            repository.saveAll(List.of(user1,user2));
+//            repository.saveAll(List.of(user1,user2));
         };
     }
 }
