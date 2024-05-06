@@ -31,6 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/java/com/group04/OnlineAuctionPlatform/img/store/1.png
-/src/main/java/com/group04/OnlineAuctionPlatform/img/store/234.jpeg
-/src/main/java/com/group04/OnlineAuctionPlatform/img/store/customName.jpeg
+
+
+src/main/java/com/group04/OnlineAuctionPlatform/img/store/1.png
