@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ItemService {
@@ -34,9 +35,12 @@ public class ItemService {
         }
     }
 
-    public void addItem(ItemData itemData) {
+    public Map<String,String> addItem(ItemData itemData) {
         try {
             itemRepository.save(itemData);
+            ItemData savedItem = itemRepository.save(itemData);
+
+            return Map.of("message", "Item added successfully", "itemId", savedItem.getId().toString());
         } catch (Exception e) {
             throw new IllegalStateException("Failed to add item "+ e.toString());
         }

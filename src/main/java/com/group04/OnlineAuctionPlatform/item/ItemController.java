@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -31,7 +32,7 @@ public class ItemController {
     }
 
     @PostMapping()
-    public void addItem(@RequestBody ItemData itemData){
-        itemService.addItem(itemData);
+    public Map<String,String> addItem(@RequestBody ItemData itemData){
+        return itemService.addItem(itemData);
     }
 }
