@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "apis/v1/userdata")
 public class UserController {
 
@@ -35,8 +36,8 @@ public class UserController {
     }
 
     @PostMapping
-    public void registerUser(@RequestBody UserData userData){
-        userService.registerUser(userData);
+    public Map<String, String> registerUser(@RequestBody UserData userData){
+      return  userService.registerUser(userData);
     }
 
 
