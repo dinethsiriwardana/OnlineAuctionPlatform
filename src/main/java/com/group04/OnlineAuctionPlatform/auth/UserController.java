@@ -10,8 +10,8 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@CrossOrigin
 @RequestMapping(path = "apis/v1/userdata")
 public class UserController {
 
@@ -28,6 +28,8 @@ public class UserController {
     public List<UserData> loginUser(){
         return userService.getUsers();
     }
+
+
 
     @PostMapping("/login")
     public Map<String, String> loginUser(@RequestBody UserData userData){
