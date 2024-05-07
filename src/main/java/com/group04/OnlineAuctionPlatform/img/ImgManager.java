@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpHeaders;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import net.coobird.thumbnailator.Thumbnails; // Import for image compression
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,10 +31,9 @@ public class ImgManager {
             String customName = itemId.toString();
             String filename = customName + ".png"; // Always save as PNG
 
-            // Convert the file to PNG format
-            BufferedImage image = ImageIO.read(file.getInputStream());
-            Path convertedFilePath = Paths.get(uploadDirectory, filename);
-            ImageIO.write(image, "png", convertedFilePath.toFile());
+            // Compress and save the file
+            Path filepath = Paths.get(uploadDirectory, filename);
+            compressAndSaveImage(file, filepath);
 
             return "File uploaded successfully!";
         } catch (Exception e) {
@@ -46,8 +46,7 @@ public class ImgManager {
         try {
             // Load file as Resource
             Path filePath = Paths.get(uploadDirectory).resolve(filename).normalize();
-            filePath = Path.of(filePath + ".png");
-            System.out.println(filePath);
+            filePath  = Path.of(filePath + ".png");
             Resource resource = new UrlResource(filePath.toUri());
 
             // Check if the file exists
@@ -58,7 +57,7 @@ public class ImgManager {
                 // Return the response with the file and appropriate content type
                 return ResponseEntity.ok()
                         .contentType(mediaType)
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline") // Set content disposition to inline
                         .body(resource);
             } else {
                 return ResponseEntity.notFound().build();
@@ -78,5 +77,17 @@ public class ImgManager {
             // Default to image/jpeg if the file extension is not recognized
             return MediaType.IMAGE_JPEG;
         }
+    }
+
+    // Helper method to compress and save the image
+    private void compressAndSaveImage(MultipartFile file, Path filepath) throws IOException {
+        // Compress the image to reduce its size
+        BufferedImage compressedImage = Thumbnails.of(file.getInputStream())
+                .size(1024, 768) // Specify the dimensions for compression
+                .outputQuality(0.5) // Specify the quality of the compressed image
+                .asBufferedImage();
+
+        // Save the compressed image to the server
+        ImageIO.write(compressedImage, "png", filepath.toFile());
     }
 }
