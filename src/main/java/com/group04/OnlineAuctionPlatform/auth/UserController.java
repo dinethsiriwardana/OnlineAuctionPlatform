@@ -31,6 +31,13 @@ public class UserController {
 
 
 
+    @GetMapping(path = "{id}")
+    public UserData getUser(@PathVariable("id") Long id){
+        return userService.getUser(id);
+    }
+
+
+
     @PostMapping("/login")
     public Map<String, String> loginUser(@RequestBody UserData userData){
 

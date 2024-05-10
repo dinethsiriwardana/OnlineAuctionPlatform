@@ -1,6 +1,7 @@
 package com.group04.OnlineAuctionPlatform.auth;
 
 
+import com.group04.OnlineAuctionPlatform.utl.DataEncryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    DataEncryption dataEncryption = new DataEncryption();
 
     public Map<String, String> loginUser(String email, String password) {
         Optional<UserData> userOptional = userRepository.findUserByEmail(email);
@@ -32,11 +34,11 @@ public class UserService {
             throw new IllegalStateException("User not found");
         }
         UserData user = userOptional.get();
-        if(!user.getPassword().equals(encryptPassword(password))){
+        if(!user.getPassword().equals(dataEncryption.encryptPassword(password))){
             throw new IllegalStateException("Password is incorrect");
         }
         Map<String, String> response = new HashMap<>();
-        response.put("token", encryptPassword(user.getId().toString()));
+        response.put("token", dataEncryption.encryptPassword(user.getId().toString()));
         return response;
     }
 
@@ -47,7 +49,7 @@ public class UserService {
         if(userOptional.isPresent()){
             throw new IllegalStateException("email already taken");
         }
-        userData.setPassword(encryptPassword(userData.getPassword()));
+        userData.setPassword(dataEncryption.encryptPassword(userData.getPassword()));
         try {
             userRepository.save(userData);
         } catch (Exception e) {
@@ -57,14 +59,19 @@ public class UserService {
         return loginUser(userData.getEmail(), password);
     }
 
-    private String encryptPassword(String password) {
+
+    public UserData getUser(Long userId){
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hashedPassword = md.digest(password.getBytes());
-            return Base64.getEncoder().encodeToString(hashedPassword);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
+            UserData user = userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("User not found"));
+            if (user != null) {
+                return user;
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to get user "+ e.toString());
         }
+
+        return null;
     }
+
+
 }

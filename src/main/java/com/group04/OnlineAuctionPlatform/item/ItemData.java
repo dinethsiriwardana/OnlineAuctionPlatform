@@ -1,8 +1,10 @@
 package com.group04.OnlineAuctionPlatform.item;
 
+import com.group04.OnlineAuctionPlatform.utl.DataEncryption;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -31,10 +33,14 @@ public class ItemData {
 
     private Long add_by;
 
+
+
     public ItemData() {
     }
 
     public ItemData(Long id, String name, String description, double start_price, LocalDateTime createdAt, LocalDateTime expiredAt, Long add_by) {
+        System.out.println("ItemData constructor");
+
         this.id = id;
         this.name = name;
         this.description = description;
@@ -45,10 +51,10 @@ public class ItemData {
     }
 
 
-    public ItemData(String name, String description, double start_price, String expiredAt, Long add_by) {
+    public ItemData(String name, String description, double start_price,LocalDateTime  expiredAt, Long add_by) {
         // Example of parsing the date string with a custom format including fractional seconds
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
-        LocalDateTime dateTime = LocalDateTime.parse("2024-05-05T10:52:47.271194", formatter);
+//        LocalDateTime dateTime = LocalDateTime.parse(expiredAt, formatter);
 
 
         this.name = name;
@@ -56,7 +62,7 @@ public class ItemData {
         this.start_price = start_price;
         this.createdAt = LocalDateTime.now();
 
-        this.expiredAt = dateTime;
+        this.expiredAt = expiredAt;
         this.add_by = add_by;
     }
 
