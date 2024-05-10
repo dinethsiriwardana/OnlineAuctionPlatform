@@ -1,13 +1,12 @@
 package com.group04.OnlineAuctionPlatform.bid;
 
-
+import com.group04.OnlineAuctionPlatform.auth.UserData;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table
-
 public class BidManager {
 
     @Id
@@ -20,29 +19,24 @@ public class BidManager {
             strategy = GenerationType.SEQUENCE,
             generator = "bid_sequence"
     )
-
     private Long id;
 
     private Long itemId;
-    private Long userId;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Assuming many bids belong to one user
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private UserData user;
+
     private double bidPrice;
     private LocalDateTime bidTime;
-
 
     public BidManager() {
     }
 
-    public BidManager(Long id, Long itemId, Long userId, double bidPrice, LocalDateTime bidTime) {
+    public BidManager(Long id, Long itemId, UserData user, double bidPrice, LocalDateTime bidTime) {
         this.id = id;
         this.itemId = itemId;
-        this.userId = userId;
-        this.bidPrice = bidPrice;
-        this.bidTime = bidTime;
-    }
-
-    public BidManager(Long itemId, Long userId, double bidPrice, LocalDateTime bidTime) {
-        this.itemId = itemId;
-        this.userId = userId;
+        this.user = user;
         this.bidPrice = bidPrice;
         this.bidTime = bidTime;
     }
@@ -59,31 +53,41 @@ public class BidManager {
         return itemId;
     }
 
-    public void setItemId(Long item_id) {
-        this.itemId = item_id;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UserData getUser() {
+        return user;
     }
 
-    public void setUserId(Long user_id) {
-        this.userId = user_id;
+    public void setUser(UserData user) {
+        this.user = user;
     }
 
     public double getBidPrice() {
         return bidPrice;
     }
 
-    public void setBidPrice(double bid_price) {
-        this.bidPrice = bid_price;
+    public void setBidPrice(double bidPrice) {
+        this.bidPrice = bidPrice;
     }
 
     public LocalDateTime getBidTime() {
         return bidTime;
     }
 
-    public void setBidTime(LocalDateTime bid_time) {
-        this.bidTime = bid_time;
+    public void setBidTime(LocalDateTime bidTime) {
+        this.bidTime = bidTime;
     }
+
+    public BidManager(Long itemId, UserData user, double bidPrice, LocalDateTime bidTime) {
+        this.itemId = itemId;
+        this.user = user;
+        this.bidPrice = bidPrice;
+        this.bidTime = bidTime;
+    }
+
+
+
 }
