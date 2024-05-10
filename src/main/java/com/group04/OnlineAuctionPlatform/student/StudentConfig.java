@@ -35,7 +35,7 @@ public class StudentConfig {
                             5
                     )
             );
-            repository.saveAll(List.of(dineth,Siriwardhana));
+//            repository.saveAll(List.of(dineth,Siriwardhana));
         };
     }
 }
