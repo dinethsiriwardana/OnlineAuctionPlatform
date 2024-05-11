@@ -46,9 +46,13 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.14</version> <!-- Specify the latest version -->
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
 
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>
