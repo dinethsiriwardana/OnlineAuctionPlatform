@@ -16,30 +16,43 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Validated
 @RestController
 @RequestMapping(path = "apis/v1/file")
 public class ImgManager {
 
+    private ExecutorService executorService = Executors.newFixedThreadPool(5); // You can adjust the number of threads as needed
+
     private final String uploadDirectory = "./src/main/java/com/group04/OnlineAuctionPlatform/img/store";
 
     @PostMapping
     public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("itemId") Long itemId) {
         try {
-            // Generate a custom filename using the item ID
-            String customName = itemId.toString();
-            String filename = customName + ".png"; // Always save as PNG
+            // Execute the file upload operation asynchronously using a thread from the thread pool
+            executorService.execute(() -> {
+                try {
+                    // Generate a custom filename using the item ID
+                    String customName = itemId.toString();
+                    String filename = customName + ".png"; // Always save as PNG
 
-            // Compress and save the file
-            Path filepath = Paths.get(uploadDirectory, filename);
-            compressAndSaveImage(file, filepath);
+                    // Compress and save the file
+                    Path filepath = Paths.get(uploadDirectory, filename);
+                    compressAndSaveImage(file, filepath);
+                } catch (Exception e) {
+                    // Handle any exceptions that occur during file upload
+                    e.printStackTrace();
+                }
+            });
 
-            return "File uploaded successfully!";
+            return "File upload process initiated!";
         } catch (Exception e) {
-            return "Failed to upload file: " + e.getMessage();
+            return "Failed to initiate file upload process: " + e.getMessage();
         }
     }
+
 
     @GetMapping("/image/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
