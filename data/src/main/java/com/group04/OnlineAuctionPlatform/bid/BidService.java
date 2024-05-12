@@ -39,6 +39,7 @@ public class BidService {
 
     public List<BidManager> getBid(Long item_id) {
         return bidRepository.findByItemIdOrderByBidTimeDesc(item_id);
+
     }
     public List<Map<String, Object>> getBidWithUserId(Long itemId) {
         List<BidManager> bids = bidRepository.findByItemIdOrderByBidTimeDesc(itemId);
