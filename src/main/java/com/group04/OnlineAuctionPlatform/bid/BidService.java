@@ -1,15 +1,11 @@
 package com.group04.OnlineAuctionPlatform.bid;
 
-import com.group04.OnlineAuctionPlatform.auth.UserRepository;
-
+import com.group04.OnlineAuctionPlatform.instance.bid.BidInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +16,9 @@ import java.util.stream.Collectors;
 public class BidService {
 
     private final BidRepository bidRepository;
+
+    BidInstance bidInstance = BidInstance.getInstance();
+
 
 
 
@@ -34,7 +33,7 @@ public class BidService {
 
     public void addBid(BidManager bidManager) throws RemoteException, AlreadyBoundException {
         bidRepository.save(bidManager);
-
+        bidInstance.setInstHighestBidPrices();
 
     }
 
@@ -67,6 +66,8 @@ public class BidService {
             innerMap.put("bidPrice", map.get("bid_price"));
             resultMap.put(itemId, innerMap);
         });
+
+
 
 
 

@@ -21,6 +21,9 @@ public class BidController {
     private final BidService bidService;
     private final UserService userService;
 
+    BidInstance bidInstance = BidInstance.getInstance();
+
+
 
     @Autowired
     public BidController(BidService bidService, UserService userService){
@@ -58,13 +61,11 @@ public class BidController {
     @GetMapping(path = "highest")
     public Map getHighestBidPrices(){
 
-//        try {
-//            return BidInstance.getInstance().setHighestBidPrices();
-//        }
-//        catch (Exception e) {
-//            System.out.println("Exception: " + e.getMessage());
-//            return bidService.setHighestBidPrices();
-//        }
-        return bidService.getHighestBidPrices();
+        if (bidInstance.getInstHighestBidPrices() == null) {
+            bidInstance.setInstHighestBidPrices();
+
+        }
+            return bidInstance.getInstHighestBidPrices();
+
     }
 }

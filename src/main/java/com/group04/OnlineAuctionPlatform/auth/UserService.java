@@ -29,7 +29,9 @@ public class UserService {
     DataEncryption dataEncryption = new DataEncryption();
 
     public Map<String, String> loginUser(String email, String password) {
+
         Optional<UserData> userOptional = userRepository.findUserByEmail(email);
+
         if(userOptional.isEmpty()){
             throw new IllegalStateException("User not found");
         }
