@@ -34,3 +34,13 @@ Welcome to our auction platform! Below are some guidelines to help you navigate 
 
 5. **Enjoy the Experience**: Above all, enjoy your experience on our auction platform and happy bidding!
 
+
+
+Sample Img:-
+![Screenshot 2024-05-12 at 9 22 09 AM](https://github.com/dinethsiriwardana/OnlineAuctionPlatform/assets/91774218/5e71aa42-9bdf-48e6-85c8-702e635f1ef8)
+![Screenshot 2024-05-12 at 9 22 16 AM](https://github.com/dinethsiriwardana/OnlineAuctionPlatform/assets/91774218/dcc39d68-a33a-46f7-b8fe-e667961a5efb)
+![Screenshot 2024-05-12 at 9 34 51 AM](https://github.com/dinethsiriwardana/OnlineAuctionPlatform/assets/91774218/118f5d92-f309-46f7-a67f-25f2099e5acd)
+![Screenshot 2024-05-12 at 9 34 56 AM](https://github.com/dinethsiriwardana/OnlineAuctionPlatform/assets/91774218/d8efda76-2dea-4e5a-83be-0bad7836ec75)
+![Screenshot 2024-05-12 at 9 35 01 AM](https://github.com/dinethsiriwardana/OnlineAuctionPlatform/assets/91774218/4010660a-f763-4cdd-9ebf-d8bc3632e81a)
+![Screenshot 2024-05-12 at 9 35 05 AM](https://github.com/dinethsiriwardana/OnlineAuctionPlatform/assets/91774218/3482620f-fc04-4297-95b8-ccd5c25ae6b9)
+
